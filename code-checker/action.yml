@@ -1,0 +1,47 @@
+name: Code checker
+
+inputs:
+  node-version:
+    description: 'Node version to run scripts'
+    default: '20.x'
+    required: false
+    type: string
+  check-prettier:
+    description: 'Check prettier errors'
+    default: true
+    required: false
+    type: boolean
+  write-prettier:
+    description: 'Fix prettier errors'
+    default: false
+    required: false
+    type: boolean
+  check-lint:
+    description: 'Check lint errors'
+    default: true
+    required: false
+    type: boolean
+  write-lint:
+    description: 'Fix lint errors'
+    default: false
+    required: false
+    type: boolean
+
+runs:
+  using: "composite"
+  steps:
+    prettier:
+      uses: MultiverseCMS/github-workflows/.github/workflows/prettier.yml@main
+      with:
+        node-version: ${{ inputs.node-version }}
+        check: ${{ inputs.check-prettier }}
+        write: ${{ inputs.write-prettier }}
+      secrets: inherit
+
+    lint:
+      uses: MultiverseCMS/github-workflows/.github/workflows/lint.yml@main
+      with:
+        node-version: ${{ inputs.node-version }}
+        check: ${{ inputs.check-lint }}
+        write: ${{ inputs.write-lint }}
+      secrets: inherit
