@@ -1,0 +1,28 @@
+name: "Run yarn install"
+description: "Sets up node env and runs a clean yarn install"
+
+inputs:
+  node-version:
+    description: 'Node version to run scripts'
+    default: '20.x'
+    required: false
+    type: string
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Setup Node ${{ inputs.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ inputs.node-version }}
+        cache: yarn
+    
+    - name: Install Dependencies
+      run: |
+            rm -rf node_modules
+            yarn cache clean
+            yarn install --check-files
+      shell: bash
