@@ -37,14 +37,18 @@ inputs:
 runs:
   using: composite
   steps:
-    - uses: MultiverseCMS/github-workflows/.github/workflows/prettier@main
+    - uses: actions/checkout@v3
+
+    - name: Prettier
+      uses: MultiverseCMS/github-workflows/.github/workflows/prettier@main
       with:
         node-version: ${{ inputs.node-version }}
         node-version-file: ${{ inputs.node-version-file }}
         check: ${{ inputs.check-prettier }}
         write: ${{ inputs.write-prettier }}
 
-    - uses: MultiverseCMS/github-workflows/.github/workflows/lint@main
+    - name: Lint
+      uses: MultiverseCMS/github-workflows/.github/workflows/lint@main
       with:
         node-version: ${{ inputs.node-version }}
         node-version-file: ${{ inputs.node-version-file }}
