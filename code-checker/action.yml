@@ -40,7 +40,7 @@ runs:
     - uses: actions/checkout@v3
 
     - name: Prettier
-      uses: MultiverseCMS/github-workflows/.github/workflows/prettier@main
+      uses: MultiverseCMS/github-actions/yarn/prettier@main
       with:
         node-version: ${{ inputs.node-version }}
         node-version-file: ${{ inputs.node-version-file }}
@@ -48,7 +48,7 @@ runs:
         write: ${{ inputs.write-prettier }}
 
     - name: Lint
-      uses: MultiverseCMS/github-workflows/.github/workflows/lint@main
+      uses: MultiverseCMS/github-actions/yarn/lint@main
       with:
         node-version: ${{ inputs.node-version }}
         node-version-file: ${{ inputs.node-version-file }}
