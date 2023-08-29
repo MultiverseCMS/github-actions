@@ -1,47 +1,54 @@
 name: Code checker
+description: Checks the code running prettier and lint workflows
+author: Jose J. Pardines
 
 inputs:
   node-version:
-    description: 'Node version to run scripts'
-    default: '20.x'
+    description: "Node version to run scripts"
+    default: "20.x"
+    required: false
+    type: string
+  node-version-file:
+    description: "Accepts a path to a file containing the version of Node.js to be used by a project"
+    default: ""
     required: false
     type: string
   check-prettier:
-    description: 'Check prettier errors'
+    description: "Check prettier errors"
     default: true
     required: false
     type: boolean
   write-prettier:
-    description: 'Fix prettier errors'
+    description: "Fix prettier errors"
     default: false
     required: false
     type: boolean
   check-lint:
-    description: 'Check lint errors'
+    description: "Check lint errors"
     default: true
     required: false
     type: boolean
   write-lint:
-    description: 'Fix lint errors'
+    description: "Fix lint errors"
     default: false
     required: false
     type: boolean
 
 runs:
-  using: "composite"
+  using: composite
   steps:
-    prettier:
-      uses: MultiverseCMS/github-workflows/.github/workflows/prettier.yml@main
+    - uses: MultiverseCMS/github-workflows/.github/workflows/prettier@v1
       with:
         node-version: ${{ inputs.node-version }}
+        node-version-file: ${{ inputs.node-version-file }}
         check: ${{ inputs.check-prettier }}
         write: ${{ inputs.write-prettier }}
       secrets: inherit
 
-    lint:
-      uses: MultiverseCMS/github-workflows/.github/workflows/lint.yml@main
+    - uses: MultiverseCMS/github-workflows/.github/workflows/lint@v1
       with:
         node-version: ${{ inputs.node-version }}
+        node-version-file: ${{ inputs.node-version-file }}
         check: ${{ inputs.check-lint }}
         write: ${{ inputs.write-lint }}
       secrets: inherit
