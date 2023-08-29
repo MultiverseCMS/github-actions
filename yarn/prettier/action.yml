@@ -28,7 +28,7 @@ runs:
   using: composite
   steps:
     - uses: actions/checkout@v3
-    
+
     - name: Install Dependencies
       uses: MultiverseCMS/github-actions/yarn/install@main
       with:
@@ -38,7 +38,9 @@ runs:
     - name: Check prettier
       if: inputs.check
       run: yarn prettier:check
+      shell: bash
 
     - name: Run prettier
       if: inputs.write
       run: yarn prettier:write
+      shell: bash

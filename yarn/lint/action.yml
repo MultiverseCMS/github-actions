@@ -38,7 +38,9 @@ runs:
     - name: Check lint
       if: inputs.check
       run: yarn lint:check
+      shell: bash
 
     - name: Run lint
       if: inputs.write
       run: yarn lint:fix
+      shell: bash
